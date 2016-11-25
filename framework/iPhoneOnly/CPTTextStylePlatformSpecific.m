@@ -169,15 +169,41 @@
  **/
 -(CGSize)sizeWithTextStyle:(nullable CPTTextStyle *)style
 {
+    CGSize textSize;
+
+#if TARGET_OS_SIMULATOR || TARGET_OS_TV
     CGRect rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
-                                     options:CPTStringDrawingOptions
+                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
                                   attributes:style.attributes
                                      context:nil];
-
-    CGSize textSize = rect.size;
-
+    textSize        = rect.size;
     textSize.width  = ceil(textSize.width);
     textSize.height = ceil(textSize.height);
+#else
+    // -boundingRectWithSize:options:attributes:context: is available in iOS 7.0 and later
+    if ( [self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)] ) {
+        CGRect rect = [self boundingRectWithSize:CPTSizeMake(10000.0, 10000.0)
+                                         options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
+                                      attributes:style.attributes
+                                         context:nil];
+        textSize        = rect.size;
+        textSize.width  = ceil(textSize.width);
+        textSize.height = ceil(textSize.height);
+    }
+    else {
+        UIFont *theFont    = nil;
+        NSString *fontName = style.fontName;
+
+        if ( fontName ) {
+            theFont = [UIFont fontWithName:fontName size:style.fontSize];
+        }
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        textSize = [self sizeWithFont:theFont constrainedToSize:CPTSizeMake(10000.0, 10000.0)];
+#pragma clang diagnostic pop
+    }
+#endif
 
     return textSize;
 }
@@ -206,7 +232,7 @@
 
 #if TARGET_OS_SIMULATOR || TARGET_OS_TV
     [self drawWithRect:rect
-               options:CPTStringDrawingOptions
+               options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
             attributes:style.attributes
                context:nil];
 #else
@@ -214,7 +240,7 @@
     // -drawWithRect:options:attributes:context: method is available in iOS 7.0 and later
     if ( [self respondsToSelector:@selector(drawWithRect:options:attributes:context:)] ) {
         [self drawWithRect:rect
-                   options:CPTStringDrawingOptions
+                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine
                 attributes:style.attributes
                    context:nil];
     }

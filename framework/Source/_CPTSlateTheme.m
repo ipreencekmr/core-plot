@@ -12,7 +12,7 @@
 #import "CPTXYAxisSet.h"
 #import "CPTXYGraph.h"
 
-CPTThemeName const kCPTSlateTheme = @"Slate";
+NSString *const kCPTSlateTheme = @"Slate";
 
 /// @cond
 @interface _CPTSlateTheme()

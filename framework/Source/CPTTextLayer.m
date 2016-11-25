@@ -316,8 +316,12 @@ const CGFloat kCPTTextLayerMarginWidth = CPTFloat(2.0);
 
     if ( myText.length > 0 ) {
         NSAttributedString *styledText = self.attributedText;
-        if ( styledText.length > 0 ) {
-            textSize = [styledText sizeAsDrawn];
+        if ( (styledText.length > 0) && [styledText respondsToSelector:@selector(size)] ) {
+#if TARGET_OS_SIMULATOR || TARGET_OS_IPHONE
+            textSize = styledText.size;
+#else
+            textSize = NSSizeToCGSize(styledText.size);
+#endif
         }
         else {
             textSize = [myText sizeWithTextStyle:self.textStyle];

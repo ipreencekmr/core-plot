@@ -15,14 +15,14 @@
 /** @defgroup legendAnimation Legends
  *  @brief Legend properties that can be animated using Core Animation.
  *  @if MacOnly
- *  @since Custom layer property animation is supported on macOS 10.6 and later.
+ *  @since Custom layer property animation is supported on MacOS 10.6 and later.
  *  @endif
  *  @ingroup animation
  **/
 
-CPTLegendNotification const CPTLegendNeedsRedrawForPlotNotification        = @"CPTLegendNeedsRedrawForPlotNotification";
-CPTLegendNotification const CPTLegendNeedsLayoutForPlotNotification        = @"CPTLegendNeedsLayoutForPlotNotification";
-CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeedsReloadEntriesForPlotNotification";
+NSString *const CPTLegendNeedsRedrawForPlotNotification        = @"CPTLegendNeedsRedrawForPlotNotification";
+NSString *const CPTLegendNeedsLayoutForPlotNotification        = @"CPTLegendNeedsLayoutForPlotNotification";
+NSString *const CPTLegendNeedsReloadEntriesForPlotNotification = @"CPTLegendNeedsReloadEntriesForPlotNotification";
 
 /// @cond
 @interface CPTLegend()
@@ -1206,7 +1206,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         return NO;
     }
 
-    id<CPTLegendDelegate> theDelegate = (id<CPTLegendDelegate>)self.delegate;
+    id<CPTLegendDelegate> theDelegate = self.delegate;
     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchDownAtIndex:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchDownAtIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||
@@ -1277,7 +1277,7 @@ CPTLegendNotification const CPTLegendNeedsReloadEntriesForPlotNotification = @"C
         return NO;
     }
 
-    id<CPTLegendDelegate> theDelegate = (id<CPTLegendDelegate>)self.delegate;
+    id<CPTLegendDelegate> theDelegate = self.delegate;
     if ( [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:touchUpAtIndex:withEvent:)] ||
          [theDelegate respondsToSelector:@selector(legend:legendEntryForPlot:wasSelectedAtIndex:)] ||

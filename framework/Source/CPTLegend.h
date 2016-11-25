@@ -8,28 +8,23 @@
 @class CPTLineStyle;
 @class CPTTextStyle;
 
-/**
- *  @brief Graph notification type.
- **/
-typedef NSString *CPTLegendNotification cpt_swift_struct;
-
 /// @name Legend
 /// @{
 
 /** @brief Notification sent by plots to tell the legend it should redraw itself.
  *  @ingroup notification
  **/
-extern CPTLegendNotification __nonnull const CPTLegendNeedsRedrawForPlotNotification NS_SWIFT_NAME(needsRedrawForPlot);
+extern NSString *__nonnull const CPTLegendNeedsRedrawForPlotNotification;
 
 /** @brief Notification sent by plots to tell the legend it should update its layout and redraw itself.
  *  @ingroup notification
  **/
-extern CPTLegendNotification __nonnull const CPTLegendNeedsLayoutForPlotNotification NS_SWIFT_NAME(needsLayoutForPlot);
+extern NSString *__nonnull const CPTLegendNeedsLayoutForPlotNotification;
 
 /** @brief Notification sent by plots to tell the legend it should reload all legend entries.
  *  @ingroup notification
  **/
-extern CPTLegendNotification __nonnull const CPTLegendNeedsReloadEntriesForPlotNotification NS_SWIFT_NAME(needsReloadEntriesForPlot);
+extern NSString *__nonnull const CPTLegendNeedsReloadEntriesForPlotNotification;
 
 /// @}
 
@@ -46,7 +41,7 @@ typedef NS_ENUM (NSInteger, CPTLegendSwatchLayout) {
 /**
  *  @brief Legend delegate.
  **/
-@protocol CPTLegendDelegate<CPTLayerDelegate>
+@protocol CPTLegendDelegate<NSObject>
 
 @optional
 

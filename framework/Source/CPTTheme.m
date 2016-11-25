@@ -110,7 +110,7 @@ static NSMutableSet<Class> *themes = nil;
  *  @return A CPTTheme instance with name matching @par{themeName} or @nil if no themes with a matching name were found.
  *  @see See @ref themeNames "Theme Names" for a list of named themes provided by Core Plot.
  **/
-+(nullable instancetype)themeNamed:(nullable CPTThemeName)themeName
++(nullable instancetype)themeNamed:(nullable NSString *)themeName
 {
     CPTTheme *newTheme = nil;
 
@@ -149,7 +149,7 @@ static NSMutableSet<Class> *themes = nil;
 /** @brief The name used for this theme class.
  *  @return The name.
  **/
-+(nonnull CPTThemeName)name
++(nonnull NSString *)name
 {
     return NSStringFromClass(self);
 }
